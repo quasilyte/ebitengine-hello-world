@@ -4,6 +4,8 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/quasilyte/ebitengine-hello-world/internal/assets"
+	"github.com/quasilyte/ebitengine-hello-world/internal/controls"
+	input "github.com/quasilyte/ebitengine-input"
 	resource "github.com/quasilyte/ebitengine-resource"
 	"github.com/quasilyte/gmath"
 )
@@ -17,7 +19,9 @@ type myGame struct {
 	windowWidth  int
 	windowHeight int
 
-	loader *resource.Loader
+	inputSystem input.System
+	input       *input.Handler
+	loader      *resource.Loader
 
 	player *Player
 }
@@ -28,6 +32,10 @@ func main() {
 		windowHeight: 240,
 		loader:       createLoader(),
 	}
+	g.inputSystem.Init(input.SystemConfig{
+		DevicesEnabled: input.AnyDevice,
+	})
+	g.input = g.inputSystem.NewHandler(0, controls.DefaultKeymap)
 
 	ebiten.SetWindowSize(g.windowWidth, g.windowHeight)
 	ebiten.SetWindowTitle("Ebitengine Quest")
@@ -42,7 +50,24 @@ func main() {
 }
 
 func (g *myGame) Update() error {
-	g.player.pos.X += 16 * (1.0 / 60.0)
+	g.inputSystem.Update()
+
+	speed := 64.0 * (1.0 / 60)
+	var v gmath.Vec
+	if g.input.ActionIsPressed(controls.ActionMoveRight) {
+		v.X += speed
+	}
+	if g.input.ActionIsPressed(controls.ActionMoveDown) {
+		v.Y += speed
+	}
+	if g.input.ActionIsPressed(controls.ActionMoveLeft) {
+		v.X -= speed
+	}
+	if g.input.ActionIsPressed(controls.ActionMoveUp) {
+		v.Y -= speed
+	}
+	g.player.pos = g.player.pos.Add(v)
+
 	return nil
 }
 
