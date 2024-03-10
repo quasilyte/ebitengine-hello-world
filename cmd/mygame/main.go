@@ -5,6 +5,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/audio"
 	"github.com/quasilyte/ebitengine-hello-world/internal/assets"
 	"github.com/quasilyte/ebitengine-hello-world/internal/controls"
+	"github.com/quasilyte/ebitengine-hello-world/internal/game"
 	input "github.com/quasilyte/ebitengine-input"
 	resource "github.com/quasilyte/ebitengine-resource"
 	"github.com/quasilyte/gmath"
@@ -16,31 +17,30 @@ type Player struct {
 }
 
 type myGame struct {
-	windowWidth  int
-	windowHeight int
-
 	inputSystem input.System
-	input       *input.Handler
-	loader      *resource.Loader
+	ctx         *game.Context
 
 	player *Player
 }
 
 func main() {
+	ctx := &game.Context{
+		Loader:       createLoader(),
+		WindowWidth:  320,
+		WindowHeight: 240,
+	}
 	g := &myGame{
-		windowWidth:  320,
-		windowHeight: 240,
-		loader:       createLoader(),
+		ctx: ctx,
 	}
 	g.inputSystem.Init(input.SystemConfig{
 		DevicesEnabled: input.AnyDevice,
 	})
-	g.input = g.inputSystem.NewHandler(0, controls.DefaultKeymap)
+	ctx.Input = g.inputSystem.NewHandler(0, controls.DefaultKeymap)
 
-	ebiten.SetWindowSize(g.windowWidth, g.windowHeight)
+	ebiten.SetWindowSize(g.ctx.WindowWidth, g.ctx.WindowHeight)
 	ebiten.SetWindowTitle("Ebitengine Quest")
 
-	assets.RegisterResources(g.loader)
+	assets.RegisterResources(ctx.Loader)
 
 	g.init()
 
@@ -54,16 +54,16 @@ func (g *myGame) Update() error {
 
 	speed := 64.0 * (1.0 / 60)
 	var v gmath.Vec
-	if g.input.ActionIsPressed(controls.ActionMoveRight) {
+	if g.ctx.Input.ActionIsPressed(controls.ActionMoveRight) {
 		v.X += speed
 	}
-	if g.input.ActionIsPressed(controls.ActionMoveDown) {
+	if g.ctx.Input.ActionIsPressed(controls.ActionMoveDown) {
 		v.Y += speed
 	}
-	if g.input.ActionIsPressed(controls.ActionMoveLeft) {
+	if g.ctx.Input.ActionIsPressed(controls.ActionMoveLeft) {
 		v.X -= speed
 	}
-	if g.input.ActionIsPressed(controls.ActionMoveUp) {
+	if g.ctx.Input.ActionIsPressed(controls.ActionMoveUp) {
 		v.Y -= speed
 	}
 	g.player.pos = g.player.pos.Add(v)
@@ -78,11 +78,11 @@ func (g *myGame) Draw(screen *ebiten.Image) {
 }
 
 func (g *myGame) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {
-	return g.windowWidth, g.windowHeight
+	return g.ctx.WindowWidth, g.ctx.WindowHeight
 }
 
 func (g *myGame) init() {
-	gopher := g.loader.LoadImage(assets.ImageGopher).Data
+	gopher := g.ctx.Loader.LoadImage(assets.ImageGopher).Data
 	g.player = &Player{img: gopher}
 }
 
