@@ -5,6 +5,7 @@ import (
 
 	graphics "github.com/quasilyte/ebitengine-graphics"
 	"github.com/quasilyte/ebitengine-hello-world/internal/assets"
+	"github.com/quasilyte/ebitengine-hello-world/internal/controls"
 	"github.com/quasilyte/ebitengine-hello-world/internal/game"
 	"github.com/quasilyte/gmath"
 	"github.com/quasilyte/gscene"
@@ -63,4 +64,7 @@ func (c *WalksceneController) addScore(score int) {
 }
 
 func (c *WalksceneController) Update(delta float64) {
+	if c.ctx.Input.ActionIsJustPressed(controls.ActionRestart) {
+		game.ChangeScene(c.ctx, NewWalksceneController(c.ctx))
+	}
 }

@@ -41,17 +41,18 @@ func (g *gopherNode) Update(delta float64) {
 	if g.input.ActionIsPressed(controls.ActionMoveRight) {
 		v.X += speed
 	}
-
 	if g.input.ActionIsPressed(controls.ActionMoveDown) {
 		v.Y += speed
 	}
-
 	if g.input.ActionIsPressed(controls.ActionMoveLeft) {
 		v.X -= speed
 	}
-
 	if g.input.ActionIsPressed(controls.ActionMoveUp) {
 		v.Y -= speed
+	}
+
+	if !v.IsZero() {
+		g.sprite.SetHorizontalFlip(v.X < 0)
 	}
 
 	g.pos = g.pos.Add(v)
