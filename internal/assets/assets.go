@@ -27,4 +27,5 @@ func OpenAsset(path string) io.ReadCloser {
 
 func RegisterResources(loader *resource.Loader) {
 	registerImageResources(loader)
+	registerFontResources(loader)
 }

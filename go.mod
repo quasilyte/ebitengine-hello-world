@@ -4,8 +4,11 @@ go 1.22rc1
 
 require (
 	github.com/hajimehoshi/ebiten/v2 v2.6.5
+	github.com/quasilyte/ebitengine-graphics v0.0.0-20240310203713-05b8d7a97a5b
+	github.com/quasilyte/ebitengine-input v0.9.1
 	github.com/quasilyte/ebitengine-resource v0.5.0
-	github.com/quasilyte/gmath v0.0.0-20230723114625-7e8674b9f7b8
+	github.com/quasilyte/gmath v0.0.0-20240204095243-d2929ea23b5d
+	github.com/quasilyte/gscene v0.0.0-20240310133750-c9071bff3e13
 )
 
 require (
@@ -14,7 +17,6 @@ require (
 	github.com/jezek/xgb v1.1.0 // indirect
 	github.com/jfreymuth/oggvorbis v1.0.5 // indirect
 	github.com/jfreymuth/vorbis v1.0.2 // indirect
-	github.com/quasilyte/ebitengine-input v0.9.1 // indirect
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d // indirect
 	golang.org/x/exp/shiny v0.0.0-20230817173708-d852ddb80c63 // indirect
 	golang.org/x/image v0.12.0 // indirect
