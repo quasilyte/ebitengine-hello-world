@@ -24,6 +24,8 @@ github.com/quasilyte/gmath v0.0.0-20240204095243-d2929ea23b5d h1:eAFvQz5b8IiE45e
 github.com/quasilyte/gmath v0.0.0-20240204095243-d2929ea23b5d/go.mod h1:EbI+KMbALSVE2s0YFOQpR4uj66zBh9ter5P4CBMSuvA=
 github.com/quasilyte/gscene v0.0.0-20240310133750-c9071bff3e13 h1:mHxN36pUdAhK1ZxeBCB5bQrqxQ7rXi81qy7VZnmH5aA=
 github.com/quasilyte/gscene v0.0.0-20240310133750-c9071bff3e13/go.mod h1:0GWl/j4N+4rfBx2pb+TFn4pnPvGz5rkWY89KrBGt2Go=
+github.com/quasilyte/gsignal v0.0.0-20231010082051-3c00e9ebb4e5 h1:G6D9dfcBvveLmNi8B7de96/347Xk8rvTyhQb6uNwWPQ=
+github.com/quasilyte/gsignal v0.0.0-20231010082051-3c00e9ebb4e5/go.mod h1:qAMDDsI56AFnSrBZYG8Tj/Ys+sRsakd8Ho2be2S8Vfc=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
