@@ -28,6 +28,6 @@ func (c *SplashController) Init(s *gscene.SimpleRootScene) {
 
 func (c *SplashController) Update(delta float64) {
 	if c.ctx.Input.ActionIsJustPressed(controls.ActionConfirm) {
-		game.ChangeScene(c.ctx, walkscene.NewWalksceneController(c.ctx))
+		game.ChangeScene(c.ctx, walkscene.NewController(c.ctx))
 	}
 }

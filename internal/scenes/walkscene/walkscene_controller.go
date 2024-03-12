@@ -11,24 +11,24 @@ import (
 	"github.com/quasilyte/gscene"
 )
 
-type scene = gscene.Scene[*WalksceneController]
+type scene = gscene.Scene[*Controller]
 
-type WalksceneController struct {
+type Controller struct {
 	ctx *game.Context
 
 	state *sceneState
 
-	scene *gscene.RootScene[*WalksceneController]
+	scene *gscene.RootScene[*Controller]
 
 	scoreLabel *graphics.Label
 	score      int
 }
 
-func NewWalksceneController(ctx *game.Context) *WalksceneController {
-	return &WalksceneController{ctx: ctx}
+func NewController(ctx *game.Context) *Controller {
+	return &Controller{ctx: ctx}
 }
 
-func (c *WalksceneController) Init(s *gscene.RootScene[*WalksceneController]) {
+func (c *Controller) Init(s *gscene.RootScene[*Controller]) {
 	c.scene = s
 
 	g := newGopherNode(gmath.Vec{X: 64, Y: 64})
@@ -44,7 +44,7 @@ func (c *WalksceneController) Init(s *gscene.RootScene[*WalksceneController]) {
 	c.addScore(0)
 }
 
-func (c *WalksceneController) createPickup() {
+func (c *Controller) createPickup() {
 	p := newPickupNode(gmath.Vec{
 		X: c.ctx.Rand.FloatRange(0, float64(c.ctx.WindowWidth)),
 		Y: c.ctx.Rand.FloatRange(0, float64(c.ctx.WindowHeight)),
@@ -58,13 +58,13 @@ func (c *WalksceneController) createPickup() {
 	c.scene.AddObject(p)
 }
 
-func (c *WalksceneController) addScore(score int) {
+func (c *Controller) addScore(score int) {
 	c.score += score
 	c.scoreLabel.SetText(fmt.Sprintf("score: %d", c.score))
 }
 
-func (c *WalksceneController) Update(delta float64) {
+func (c *Controller) Update(delta float64) {
 	if c.ctx.Input.ActionIsJustPressed(controls.ActionRestart) {
-		game.ChangeScene(c.ctx, NewWalksceneController(c.ctx))
+		game.ChangeScene(c.ctx, NewController(c.ctx))
 	}
 }
